@@ -4,8 +4,6 @@ using namespace std;
 #define int long long
 #define REP(i,l,r) for(int i=l;i<=r;i++)
 #define DEP(i,r,l) for(int i=r;i>=l;i--)
-#define MAX(a, b) (a) = max((a), (b))
-#define MIN(a, b) (a) = min((a), (b))
 #define pii pair<int, int>
 #define fi first
 #define se second
@@ -36,35 +34,139 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
     }
     read(oth...);
 }
-int id;
+
 namespace YZLK{
-    const int N = 2e5 + 10;
-    int n, q, c;
-    int a[N];
-    struct node{
-        int l, r, x;
-    }qy[N];
+	mt19937 rd(time(0));
+	const int N = 1e6 + 10;
+	const int inf = 1e9;
+	int f[N];
+	int n, q;
+	int find(int x) {
+		return (f[x] == x ? f[x] : f[x] = find(f[x]));
+	}
+	struct node{
+		int l, r, x;
+	}qy[N];
+	vector<int> ql[N], qr[N];
+	struct tree{
+		struct FHQ {
+			int fa, ls, rs, key, sz, val, t1, t2;
+		}tr[N];
+		int idx, rt, T1, T2, T3;
+		int build(int u, int v) {
+			tr[u] = {0, 0, 0, (int)rd(), 1, v, 0, 0};
+			return u;
+		}
+		void push_up(int u) {
+			tr[u].sz = tr[tr[u].ls].sz + tr[tr[u].rs].sz + 1;
+			tr[tr[u].ls].fa = tr[tr[u].rs].fa = u;
+			return;
+		}
+		void flip(int u) {
+			if (!u)	return;
+			tr[u].t1 ^= 1;
+			tr[u].t2 = -tr[u].t2;
+			tr[u].val = -tr[u].val;
+			swap(tr[u].ls, tr[u].rs);
+		}
+		void upd(int u, int v) {
+			if (!u)	return;
+			tr[u].val += v;
+			tr[u].t2 += v;
+			return;
+		}
+		void push_down(int u) {
+			if (tr[u].t1) {
+				flip(tr[u].ls);
+				flip(tr[u].rs);
+				tr[u].t1 = 0;
+			}
+			if (tr[u].t2) {
+				upd(tr[u].ls, tr[u].t2);
+				upd(tr[u].rs, tr[u].t2);
+				tr[u].t2 = 0;
+			}
+			return;
+ 		}
+		void split(int u, int k, int &x, int &y) {
+			if (u == 0)	{x = y = 0;return;}
+			push_down(u);
+			if (tr[u].val <= k){
+				x = u;
+				split(tr[u].rs, k, tr[u].rs, y);
+			}
+			else {
+				y = u;
+				split(tr[u].ls, k, x, tr[u].ls);
+			}
+			push_up(u);
+			return;
+		}
+		int merge(int u, int v) {
+			if (!u or !v)	return u + v;
+			push_down(u);
+			push_down(v);
+			if (tr[u].val == tr[v].val)	f[find(u)] = find(v);
+			if (tr[u].key > tr[v].key) {
+				tr[u].rs = merge(tr[u].rs, v);
+				push_up(u);
+				return u;
+			}
+			else {
+				tr[v].ls = merge(u, tr[v].ls);
+				push_up(v);
+				return v;
+			}
+		}
+		int query(int u) {
+			vector<int> ve;
+			for(int i = u;i;i = tr[i].fa)	ve.pb(i);
+			reverse(ve.begin(), ve.end());
+			for(auto it:ve)	push_down(it);
+			return tr[u].val;
+		}
+		void solve(int v) {
+			upd(rt, -v);
+			split(rt, 0, T1, T2);
+			flip(T1);
+			rt = merge(T1, T2);
+			tr[rt].fa = 0;
+		}
+		void insert(int u, int x) {
+			rt = merge(rt, build(u, x));
+			tr[rt].fa = 0;
+			return;
+		}
+	}tr;
+	int a[N];
+	int ans[N];
     void main() {
-        read(n, q, c);
-        REP(i, 1, n)    read(a[i]);
-        REP(i, 1, q) {
-            read(qy[i].l, qy[i].r, qy[i].x);
-        }
-        REP(i, 1, q) {
-            int sum = abs(a[qy[i].l] - qy[i].x);
-            REP(j, qy[i].l + 1, qy[i].r) {
-                sum = abs(a[j] - sum);
-            }
-            cout << sum << "\n";
-        }
-        return ;
+		read(n, q);
+		REP(i, 1, n)	read(a[i]);
+		REP(i, 1, q) {
+			read(qy[i].l, qy[i].r, qy[i].x);
+			ql[qy[i].l].pb(i);
+			qr[qy[i].r].pb(i);
+			f[i] = i;
+		}
+		REP(i, 1, n) {
+			for(auto v:ql[i]) {
+				tr.insert(v, qy[v].x);
+			}
+			tr.solve(a[i]);
+			for(auto v:qr[i]) {
+				ans[v] = tr.query(find(v));
+			}
+		}
+		REP(i, 1, q)	cout << ans[i] << "\n";
+        return;
     }
 }
 
 signed main()
 {
-    freopen("reflection.in","r",stdin);
-    freopen("reflection.out","w",stdout);
+    // freopen("XXX.in","r",stdin);
+    // freopen("XXX.out","w",stdout);
 
     int T=1;
     // read(T);
@@ -73,8 +175,8 @@ signed main()
         YZLK::main();
     }
 
-    fclose(stdin);
-    fclose(stdout);
+//    fclose(stdin);
+//    fclose(stdout);
     return 0;
 }
 
@@ -82,12 +184,12 @@ signed main()
 
 code by yqfff_qwq
 
-äº¤ä»£ç ä¹‹å‰çœ‹ä¸€ä¸‹
+½»´úÂëÖ®Ç°¿´Ò»ÏÂ
 
-è¿™æ˜¯ä½ çš„ä»£ç å—ï¼Ÿè¿™æ˜¯ä½ è¦äº¤çš„é¢˜å—ï¼Ÿ
+ÕâÊÇÄãµÄ´úÂëÂğ£¿ÕâÊÇÄãÒª½»µÄÌâÂğ£¿
 
-å¤šæµ‹äº†å—ï¼Ÿå¤šæµ‹æ¸…ç©ºäº†å—ï¼Ÿå¤šæµ‹æ¸…ç©ºä¼šè¶…æ—¶å—ï¼Ÿä¼šå‡ºç°å…¶ä»–é—®é¢˜å—ï¼Ÿ
+¶à²âÁËÂğ£¿¶à²âÇå¿ÕÁËÂğ£¿¶à²âÇå¿Õ»á³¬Ê±Âğ£¿»á³öÏÖÆäËûÎÊÌâÂğ£¿
 
-æ•°ç»„å¼€å°äº†å—ï¼Ÿæ¨¡æ•°æ­£ç¡®å—ï¼Ÿè°ƒè¯•åˆ å¹²å‡€äº†å—ï¼Ÿ
+Êı×é¿ªĞ¡ÁËÂğ£¿Ä£ÊıÕıÈ·Âğ£¿µ÷ÊÔÉ¾¸É¾»ÁËÂğ£¿
 
 */
