@@ -1,7 +1,7 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
-signed main()
+int main()
 {
-    std::cout << "hello world" << '\n';
+    std::cout << "Hello, World!" << std::endl;
     return 0;
 }
