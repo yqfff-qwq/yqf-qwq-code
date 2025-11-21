@@ -36,11 +36,11 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 }
 
 namespace YZLK{
-	mt19937 rd(time(0));
+	mt19937 rd(chrono::system_clock::now().time_since_epoch().count());
 	const int N = 1e6 + 10;
 	const int inf = 1e9;
 	int f[N];
-	int n, q;
+	int n, q, c;
 	int find(int x) {
 		return (f[x] == x ? f[x] : f[x] = find(f[x]));
 	}
@@ -104,19 +104,22 @@ namespace YZLK{
 		}
 		int merge(int u, int v) {
 			if (!u or !v)	return u + v;
+			if (tr[u].key < tr[v].key)	swap(u, v);
 			push_down(u);
 			push_down(v);
-			if (tr[u].val == tr[v].val)	f[find(u)] = find(v);
-			if (tr[u].key > tr[v].key) {
-				tr[u].rs = merge(tr[u].rs, v);
-				push_up(u);
-				return u;
+			if (tr[u].val == tr[v].val)	{
+				f[find(v)] = find(u);
+				tr[u].ls = merge(tr[u].ls, tr[v].ls);
+				tr[u].rs = merge(tr[u].rs, tr[v].rs);
 			}
 			else {
-				tr[v].ls = merge(u, tr[v].ls);
-				push_up(v);
-				return v;
+				int T4, T5;
+				split(v, tr[u].val, T4, T5);
+				tr[u].ls = merge(tr[u].ls, T4);
+				tr[u].rs = merge(tr[u].rs, T5);
 			}
+			push_up(u);
+			return u;
 		}
 		int query(int u) {
 			vector<int> ve;
@@ -141,7 +144,7 @@ namespace YZLK{
 	int a[N];
 	int ans[N];
     void main() {
-		read(n, q);
+		read(n, q, c);
 		REP(i, 1, n)	read(a[i]);
 		REP(i, 1, q) {
 			read(qy[i].l, qy[i].r, qy[i].x);
@@ -155,8 +158,12 @@ namespace YZLK{
 			}
 			tr.solve(a[i]);
 			for(auto v:qr[i]) {
+				// cout << "find(" << v << "):" << find(v) << "\n";
 				ans[v] = tr.query(find(v));
+				// ans[v] = tr.query(v);
 			}
+			// REP(j, 1, q)	cout << tr.query(j) << " ";
+			// puts("");
 		}
 		REP(i, 1, q)	cout << ans[i] << "\n";
         return;
@@ -184,12 +191,12 @@ signed main()
 
 code by yqfff_qwq
 
-½»´úÂëÖ®Ç°¿´Ò»ÏÂ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½Ò»ï¿½ï¿½
 
-ÕâÊÇÄãµÄ´úÂëÂð£¿ÕâÊÇÄãÒª½»µÄÌâÂð£¿
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-¶à²âÁËÂð£¿¶à²âÇå¿ÕÁËÂð£¿¶à²âÇå¿Õ»á³¬Ê±Âð£¿»á³öÏÖÆäËûÎÊÌâÂð£¿
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ð£¿¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ð£¿¶ï¿½ï¿½ï¿½ï¿½Õ»á³¬Ê±ï¿½ð£¿»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-Êý×é¿ªÐ¡ÁËÂð£¿Ä£ÊýÕýÈ·Âð£¿µ÷ÊÔÉ¾¸É¾»ÁËÂð£¿
+ï¿½ï¿½ï¿½é¿ªÐ¡ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½È·ï¿½ð£¿µï¿½ï¿½ï¿½É¾ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½
 
 */
