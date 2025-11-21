@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define int long long
+// #define int long long
 #define REP(i,l,r) for(int i=l;i<=r;i++)
 #define DEP(i,r,l) for(int i=r;i>=l;i--)
 #define MAX(a, b) (a) = max((a), (b))
@@ -39,65 +39,125 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 
 namespace YZLK{
     const int N = 1e5 + 10;
-    int n, base, mod;
-    int q;
-    struct node{
-        int u, v;
-    }qy[N];
+    const int B = 1320;
+    bitset<N> b[78][78], tt;
+    int st[N][17];
+    int dfn[N], tim;
+    int base, mod;
+    int dep[N], mxd[N], f[N];
+    int n, m;
     int a[N];
-    vector<int> ve[N];
-    int idx;
-    int f[N];
-    int dep[N];
-    int vis[N];
-    bool dfs(int u, int v) {
-        if (u == v) return 0;
-        vis[a[u]] = idx;
-        if (vis[a[v]] == idx)   return 1;
-        vis[a[v]] = idx;
-        while(u != v) {
-            // cout << u << " " << v << "\n";
-            // REP(i, 1, 100000000);
-            if (dep[u] < dep[v])    swap(u, v);
-            u = f[u];
-            if (u == v) break;
-            if (vis[a[u]] == idx)   return 1;
-            vis[a[u]] = idx;
-        }
-        return 0;
+    int F[N];
+    int he[N], to[N << 1], ne[N << 1], tot;
+    vector<int> vv;
+    int sta[N], top;
+    int id[N], idx;
+    void add(int u, int v) {
+        ne[++tot] = he[u];
+        he[u] = tot;
+        to[tot] = v;
+        return;
     }
-    void ds(int u, int fa) {
+    int get(int x, int y) {
+        return dfn[x] < dfn[y] ? x : y;
+    }
+    void dfs(int u, int fa) {
+        st[dfn[u] = ++tim][0] = fa;
         f[u] = fa;
         dep[u] = dep[fa] + 1;
-        for(auto it:ve[u]) {
-            if (it == fa)   continue;
-            ds(it, u);
+        mxd[u] = dep[u];
+        for(int i = he[u];i;i = ne[i]) {
+            int v = to[i];
+            if (v == fa)    continue;
+            dfs(v, u);
+            mxd[u] = max(mxd[u], mxd[v]);
         }
+        if (mxd[u] - dep[u] >= B)   id[u] = ++idx, mxd[u] = dep[u];
         return;
     }
-    void solve() {
-        ds(1, 0);
-        REP(i, 1, q) {
-            idx++;
-            if (dfs(qy[i].u, qy[i].v))  puts("Yes");
-            else                        puts("No");
+    int lca(int u, int v) {
+        if (u == v) return u;
+        u = dfn[u], v = dfn[v];
+        if (u > v)  swap(u, v);
+        u++;
+        int d = __lg(v - u + 1);
+        return get(st[u][d], st[v - (1 << d) + 1][d]);
+    }
+    void dfs2(int u) {
+        for(int i = he[u];i;i = ne[i]) {
+            int v = to[i];
+            if (v == f[u])  continue;
+            if (id[v]) {
+                int x = id[sta[top]], y = id[v];
+                for(int d = v;d != sta[top];d = f[d])   b[x][y].set(a[d]);
+                tt = b[x][y];
+                for(int i = 1;i < top;i++) {
+                    bitset<N> &bt = b[id[sta[i]]][y];
+                    bt = b[id[sta[i]]][x];
+                    bt |= tt;
+                }
+                F[v] = sta[top];
+                sta[++top] = v;
+            }
+            dfs2(v);
+            if (id[v])  top--;
         }
-        return;
     }
     void main() {
         read(n, base, mod);
-        REP(i, 1, n)    read(a[i]);
+        REP(i, 1, n)    read(a[i]), vv.pb(a[i]);
+        sort(vv.begin(), vv.end());
+        vv.erase(unique(vv.begin(), vv.end()), vv.end());
+        REP(i, 1, n)    a[i] = lower_bound(vv.begin(), vv.end(), a[i]) - vv.begin();
         REP(i, 1, n - 1) {
             int u, v;
             read(u, v);
-            ve[u].pb(v);
-            ve[v].pb(u);
+            add(u, v);
+            add(v, u);
         }
-        read(q);
-        REP(i, 1, q)    read(qy[i].u, qy[i].v);
-        if (n <= 5000) {
-            solve();
-            return;
+        dfs(1, 0);
+        REP(j, 1, 16) {
+            for(int i = 1;i + (1 << j) - 1 <= n;i++)    st[i][j] = get(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
+        }
+        if (!id[1]) id[1] = ++idx;
+        top = 1;
+        sta[top] = 1;
+        dfs2(1);
+        int ans = 0;
+        read(m);
+        while(m--) {
+            int u, v;
+            read(u, v);
+            u ^= ans;
+            v ^= ans;
+            tt.reset();
+            int lc = lca(u, v);
+            int ss = dep[u] + dep[v] - 2 * dep[lc] + 1;
+            while(u != lc and !id[u])   tt.set(a[u]), u = f[u];
+            while(v != lc and !id[v])   tt.set(a[v]), v = f[v];
+            if (u != lc) {
+                int p = u;
+                while(dep[F[p]] >= dep[lc])  p = F[p];
+                if (u != p) tt |= b[id[p]][id[u]];
+                while(p != lc)  tt.set(a[p]), p = f[p];
+            }
+            if (v != lc) {
+                int p = v;
+                while(dep[F[p]] >= dep[lc])  p = F[p];
+                if (v != p) tt |= b[id[p]][id[v]];
+                while(p != lc)  tt.set(a[p]), p = f[p];
+            }
+            tt.set(a[lc]);
+            int sum = tt.count();
+            // cout << sum << " " << ss << "\n";
+            if (sum < ss) {
+                puts("Yes");
+                ans = (1ll*ans * base + 1) % mod;
+            }
+            else {
+                puts("No");
+                ans = (1ll*ans * base) % mod;
+            }
         }
         return ;
     }
