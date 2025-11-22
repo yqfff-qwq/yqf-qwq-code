@@ -42,8 +42,9 @@ namespace YZLK{
 	const int mod = 998244353;
     int n, m, k, s1, s2;
     int a[N];
-    int d[N], dg[N];
+    int d[N];
     int he[M], to[M << 1], ne[M << 1], tot;
+    vector<int> ve[N];
     void add(int u, int v) {
         ne[++tot] = he[u];
         he[u] = tot;
@@ -52,11 +53,8 @@ namespace YZLK{
     }
     void ADD(int &x, int y) {
         x += y;
-        if (x >= mod)    x -= mod;
-    }
-    void SUB(int &x, int y) {
-        x -= y;
-        if (x < 0)  x += mod;
+        if (x >= mod)   x -= mod;
+        if (x < 0)      x += mod;
     }
     bool vis[N];
     queue<int> q;
@@ -73,7 +71,6 @@ namespace YZLK{
         }
         REP(i, 1, n) {
             read(a[i]);
-            dg[i] = d[i];
             if (d[i] <= k)  q.push(i), vis[i] = 1;
         }
         while(!q.empty()) {
@@ -95,37 +92,6 @@ namespace YZLK{
         }
         if (flag)   return;
 
-        REP(i, 1, n) {
-            dp[i][0] = 1;
-            for(int j = he[i];j;j = ne[j]) {
-                int v = to[j];
-                DEP(q, K - 10, a[v])    ADD(dp[i][q], dp[i][q - a[v]]);
-            }
-        }
-
-        REP(T, 1, s1 + s2) {
-            int op, x, y;
-            read(op, x, y);
-            if (op == 1) {
-
-                a[x] = y;
-
-                for(int i = he[x];i;i = ne[i]) {
-                    int v = to[i];
-                    
-                    REP(j, 0, N - 10)   dp[v][j] = 0;
-                    dp[v][0] = 1;
-                    for(int j = he[v];j;j = ne[j]) {
-                        int vv = to[j];
-                        DEP(q, N - 10, a[vv])   ADD(dp[v][q], dp[v][q - a[vv]]);
-                    }
-                    
-                    // REP(j, a[x], K - 10)    SUB(dp[v][j], dp[v][j - a[x]]);
-                    // a[x] = y;
-                    // DEP(j, K - 10, a[x])    ADD(dp[v][j], dp[v][j - a[x]]);
-                }
-            } else  cout << dp[x][y] % mod << "\n";
-        }
         return;
     }
 }
