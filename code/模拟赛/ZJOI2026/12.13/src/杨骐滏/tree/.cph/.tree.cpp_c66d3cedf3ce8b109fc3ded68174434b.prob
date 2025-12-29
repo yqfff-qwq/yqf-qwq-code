@@ -1,0 +1,1 @@
+{"name":"Local: tree","url":"/home/ubuntu/yqf-qwq-code/code/模拟赛/ZJOI2026/12.13/src/杨骐滏/tree/tree.cpp","tests":[{"id":1765757012484,"input":"3 998244353\n1 2 3\n1 2\n1 3\n","output":"29"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/ubuntu/yqf-qwq-code/code/模拟赛/ZJOI2026/12.13/src/杨骐滏/tree/tree.cpp","group":"local","local":true}

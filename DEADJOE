@@ -1,0 +1,20 @@
+
+*** These modified files were found in JOE when it aborted on Mon Dec 29 08:43:53 2025
+*** JOE was aborted by UNIX signal 1
+
+*** File '(Unnamed)'
+/home/ubuntu/yqf-qwq-code/.git/MERGE_MSG
+
+*** File '/home/ubuntu/yqf-qwq-code/.git/MERGE_MSG'
+git config --global credential.helper manager-core
+Merge branch 'main' of https://github.com/yqfff-qwq/yqf-qwq-code into HEAD
+# 请输入一个提交信息以解释此合并的必要性，尤其是将一个更新后的上游分支
+# 合并到主题分支。
+#
+# 以 '#' 开始的行将被忽略，而空的提交说明将终止提交。
+
+*** File '* Startup Log *'
+Processing '/etc/joe/editorrc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc

@@ -1,0 +1,16 @@
+可持久化线段树：
+	data struct plus.pdf
+		（223/253）~(246/253)
+
+可持久化平衡树(FHQTreap)：
+	https://oi-wiki.org/ds/persistent-balanced/
+
+树套树：
+	二维线段树 https://blog.csdn.net/NEUQ_snowy/article/details/122709858
+	树套树：https://oi-wiki.org/ds/balanced-in-seg/
+
+KDTree：
+	https://www.cnblogs.com/kyszdsmz/p/18318805
+
+可并堆(左偏树)：
+	https://www.cnblogs.com/Heartquakes/p/18277386

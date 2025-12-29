@@ -1,0 +1,1 @@
+{"name":"Local: SP20848","url":"/home/ubuntu/yqf-qwq-code/code/练习/2025/Dec./12.8/SP20848.cpp","tests":[{"id":1765183735713,"input":"2  \n1 10  \n101 110\n","output":"10 0\n8 2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/ubuntu/yqf-qwq-code/code/练习/2025/Dec./12.8/SP20848.cpp","group":"local","local":true}
