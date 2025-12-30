@@ -50,6 +50,7 @@ namespace YZLK{
 	int c[N], ans[N];
 	int sz[N], son[N];
 	int d[N], cnt[N];
+  bool vis[N];
 	void dfs1(int u, int fa) {
 		sz[u] = 1;
 		for(auto v:ve[u]) {
@@ -65,7 +66,7 @@ namespace YZLK{
     cnt[c[u]] += s;
     if (s == 1)			d[cnt[c[u]]] += s;
     for(auto v:ve[u]) {
-      if(v == fa)	continue;
+      if(v == fa or vis[v])	continue;
       solve(v, u, s);
     }
 }
@@ -74,11 +75,12 @@ namespace YZLK{
 			if (v == fa or v == son[u])	continue;
 			dfs(v, u, 0);
 		}
-		if (son[u])	dfs(son[u], u, 1);
+		if (son[u])	dfs(son[u], u, 1), vis[son[u]] = 1;
 		solve(u, fa, 1);
 		for(auto it:qy[u]) {
 			ans[it.se] = d[it.fi];
 		}
+    if (son[u]) vis[son[u]] = 0;
 		if (!fl)	solve(u, fa, -1);
 		return;
 	}
