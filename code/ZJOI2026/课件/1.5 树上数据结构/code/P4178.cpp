@@ -43,13 +43,34 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 }
 
 namespace YZLK{
-  const int N = 1e4 + 10;
-  const int M = 1e7 + 10;
+  const int N = 4e4 + 10;
+  const int M = 4e4 + 10;
   int n, m, rt;
+  int ans;
 	std::vector<pii> ve[N];
-  int qy[N];
+  struct tree{
+    int tr[N];
+    int lowbit(int x) {return x & -x;}
+    void add(int x, int k) {
+      x++;
+      while(x <= M - 1) {
+        tr[x] += k;
+        x += lowbit(x);
+      }
+      return;
+    }
+    int query(int x) {
+      x++;
+      int sum = 0;
+      while(x) {
+        sum += tr[x];
+        x -= lowbit(x);
+      }
+      return sum;
+    }
+  }tr;
   int cnt, sz[N];
-  bool vis[N], c[M], ans[N];
+  bool vis[N];
   int f[N], d[N];
   int len, p[N];
   int rub[N], tl;
@@ -84,24 +105,24 @@ namespace YZLK{
     cnt = 0, size(u, u);
     rt = u;
     dp(u, u);
-    c[0] = 1, rub[++tl] = 0;
+    tr.add(0, 1);
+    rub[++tl] = 0;
     for(auto v:ve[rt]) {
       if (vis[v.fi])  continue;
       int i = tl;
       d[v.fi] = v.se;
       dis(v.fi, rt);
-      REP(k, 1, m) {
-        for(int j = i + 1;j <= tl and !ans[k];j++) {
-          if (qy[k] >= rub[j])  ans[k] = c[qy[k] - rub[j]];
-        }
+      for(int j = i + 1;j <= tl;j++) {
+        if (m >= rub[j])  ans += tr.query(m - rub[j]);
+        // std::cout << ans << '\n';
       }
       while(++i <= tl) {
-        if (rub[i] < M) c[rub[i]] = 1;
+        if (rub[i] < M) tr.add(rub[i], 1);
       }
     }
 
     while(tl) {
-      if (rub[tl] < M)  c[rub[tl]] = 0;
+      if (rub[tl] < M)  tr.add(rub[tl], -1);
       tl--;
     }
     vis[rt] = 1;
@@ -112,16 +133,16 @@ namespace YZLK{
     return;
   }
   void main() {
-    read(n, m);
+    read(n);
     REP(i, 1, n - 1) {
       int u, v, w;
       read(u, v, w);
       ve[u].pb({v, w});
       ve[v].pb({u, w});
     }
-    REP(i, 1, m)  read(qy[i]);
+    read(m);
     calc(1);
-    REP(i, 1, m)  std::cout << (ans[i] ? "AYE" : "NAY") << '\n';
+    std::cout << ans << '\n';
     return ;
 	}
 }
