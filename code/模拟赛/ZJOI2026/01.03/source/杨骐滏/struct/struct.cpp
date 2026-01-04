@@ -64,6 +64,7 @@ namespace YZLK{
       return sum;
     }
     void upd(int l, int r, int k) {
+      if (l > r)  return;
       add(l, k);
       add(r + 1, -k);
     }
@@ -71,8 +72,12 @@ namespace YZLK{
   int len;
   struct node{
     int p, l, r, v;
-  }d[N];
+  }d[N << 2];
   int nxt[N], he[N];
+  struct nd{
+    int l, r, id;
+  }qy[N];
+  int ans[N];
   void main() {
     read(n, m);
     REP(i, 1, n)  read(a[i]);
@@ -84,14 +89,25 @@ namespace YZLK{
     REP(i, 1, n + 1) {
       auto md = [&](int l1, int r1, int l2, int r2) -> void {
         int mnl = l1 + 1, mxl = std::min(r1 - 1, l2);
-        int mnr = std::max(i + 1, r2), mxr = r1 - 1;
-        
+        int mnr = std::max(l1 + 1, r2), mxr = r1 - 1;
+        if(mnl <= mxl && mnr <= mxr)
+        {
+          d[++len] = {mnr , mnl , mxl , 1};
+          d[++len] = {mxr + 1 , mnl , mxl , -1};
+        }
       };
       if (he[i] <= n) {
-        
+        int L = he[i], R = L;
+        while(nxt[R] <= n)  R = nxt[R];
+        for(int ls = 0, nw = he[i - 1];nw;ls = nw, nw = nxt[nw]) {
+          if (nw > R) {
+            if (ls < L)  md(ls, nw, L, R);
+            break;
+          }
+        }
       }
       else {
-        for(int ls = 0, nw = he[i - 1];nw;i = nw, nw = nxt[nw]) {
+        for(int ls = 0, nw = he[i - 1];nw;ls = nw, nw = nxt[nw]) {
           md(ls, nw, n + 1, 0);
         }
       }
@@ -100,12 +116,19 @@ namespace YZLK{
     std::sort(d + 1, d + len + 1, [](node a, node b){
       return a.p < b.p;
     });
-    for(int i = 1,j = 1;i <= m;i++) {
-      int l, r;
-      read(l, r);
-      for(;j <= len and d[j].p <= r;j++)  tr.upd(d[j].l, d[j].r, d[j].v);
-      std::cout << n + 1 - tr.query(l) << '\n';
+    REP(i, 1, m) {
+      read(qy[i].l, qy[i].r);
+      qy[i].id = i;
     }
+    std::sort(qy + 1, qy + m + 1, [](nd a, nd b) {
+      return a.r < b.r;
+    });
+    for(int i = 1,j = 1;i <= m;i++) {
+      for(;j <= len and d[j].p <= qy[i].r;j++)  tr.upd(d[j].l, d[j].r, d[j].v);
+      ans[qy[i].id] = n + 1 - tr.query(qy[i].l);
+      // std::cout << n + 1 - tr.query(l) << '\n';
+    }
+    REP(i, 1, m)  std::cout << ans[i] << '\n';
     return ;
   }
 }

@@ -42,26 +42,53 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 }
 
 namespace YZLK{
-  const int N = 5e3 + 10;
+  const int N = 4e4 + 10;
   const int mod = 998244353;
   int n, sum;
   int b[N];
+  int s[N];
+  int fac[N], inv[N];
+  int f[2][N];
+  int ksm(int a, int b) {
+    int s = 1;
+    while(b) {
+      if (b & 1)  s = s * a % mod;
+      a = a * a % mod;
+      b >>= 1;
+    }
+    return s;
+  }
+  void init() {
+    fac[0] = inv[0] = 1;
+    REP(i, 1, N - 10) fac[i] = fac[i - 1] * i % mod;
+    inv[N - 10] = ksm(fac[N - 10], mod - 2);
+    DEP(i, N - 11, 1) inv[i] = inv[i + 1] * (i + 1) % mod;
+    return;
+  }
+  int C(int x, int y) {
+    if (x < y)  return 0;
+    return fac[x] * inv[y] % mod * inv[x - y] % mod;
+  }
+
   void main() {
     read(n);
-    REP(i, 1, n)  read(b[i]), sum += b[i];
-    std::sort(b + 1, b + n + 1, [](int a, int b) {
-      return a > b;
-    });
-    if (sum & 1)  return puts("0"), void();
-    if (n == 1) {
-      if (sum)    return puts("0"), void();
-      else        return puts("1"), void();
+    REP(i, 1, n)  read(b[i]), s[i] = s[i - 1] + b[i];
+    init();
+    f[0][0] = 1;
+    REP(i, 1, n) {
+      int nw = i & 1, ls = nw ^ 1;
+      std::memset(f[nw], 0, sizeof(f[nw]));
+      REP(j, 0, s[i - 1] / 2) {
+        int x = s[i - 1] - j * 2;
+        int y = s[n] / 2 - j - x;
+        REP(k, std::max(0ll, b[i] - y), std::min(b[i], x)) {
+          f[nw][j + k] = (f[nw][j + k] + f[ls][j] * C(x, k) % mod * C(y, b[i] - k)) % mod;
+        }
+      }
     }
-    if (n == 2) {
-      if (b[1] == b[2]) return puts("1"), void();
-      else              return puts("0"), void();
-    }
-
+    int ans = 0;
+    REP(i, 0, s[n] / 2) ans = (ans + f[n & 1][i]) % mod;
+    std::cout << ans << '\n';
     return ;
   }
 }
@@ -95,3 +122,4 @@ code by yqfff_qwq
 数组开小了吗？模数正确吗？调试删干净了吗？
 
 */
+
