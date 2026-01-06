@@ -43,8 +43,8 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 
 namespace YZLK{
   const int N = 1e5 + 10;
-  int n, m, q;
-  int a[N], b[N], c[N];
+  int n, m;
+  int a[N];
   int bl[N], bk;
   std::vector<int> ve[N];
   int ans[N], l1, l2, sum;
@@ -88,8 +88,8 @@ namespace YZLK{
     return;
   }
   void main() {
-    read(n, m, q);
-    bk = pow(n, 2.0 / 3.0);
+    read(n, m);
+    bk = sqrt(n);
     REP(i, 1, m)  read(a[i]);
     REP(i, 1, n)  read(b[i]), bl[i] = (i - 1) / bk + 1;
     REP(i, 1, n - 1) {
