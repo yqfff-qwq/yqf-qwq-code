@@ -73,6 +73,7 @@ namespace YZLK{
     read(n);
     scanf("%s", c + 1);
     REP(i, 1, n)  a[i] = c[i] - '0';
+    a[0] = -1;
     REP(i, 1, n + 1)  f[i][i - 1] = 1, f[i][i] = (a[i] != a[i - 1]);
     DEP(l, n, 1) {
       REP(r, l + 1, n) {
@@ -88,8 +89,8 @@ namespace YZLK{
 
 signed main()
 {
-  // freopen("sub.in","r",stdin);
-  // freopen("sub.out","w",stdout);
+  freopen("sub.in","r",stdin);
+  freopen("sub.out","w",stdout);
   int T=1;
   // read(T);
   while(T--)

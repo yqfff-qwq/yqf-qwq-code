@@ -67,7 +67,7 @@ ll Cu(ll m)
 	//$\binom{n+m-1}{m}$ 
 	return 1ll*up[m]*ni[m]%mod;
 }
-//Ëã²å°å·¨ÓÃÉÏÉıÃİ 
+//ï¿½ï¿½ï¿½å·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 ll C(int n,int m){return 1ll*jiec[n]*ni[m]%mod*ni[n-m]%mod;}
 int is[xx],id[xx],v[xx],ct[xx];
 int ans[52][xx];
