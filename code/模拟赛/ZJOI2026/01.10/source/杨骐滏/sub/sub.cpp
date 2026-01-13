@@ -89,8 +89,8 @@ namespace YZLK{
 
 signed main()
 {
-  freopen("sub.in","r",stdin);
-  freopen("sub.out","w",stdout);
+  // freopen("sub.in","r",stdin);
+  // freopen("sub.out","w",stdout);
   int T=1;
   // read(T);
   while(T--)
@@ -107,12 +107,12 @@ signed main()
 
 code by yqfff_qwq
 
-交代码之前看一下
+������֮ǰ��һ��
 
-这是你的代码吗？这是你要交的题吗？
+������Ĵ�����������Ҫ��������
 
-多测了吗？多测清空了吗？多测清空会超时吗？会出现其他问题吗？
+������𣿶��������𣿶����ջᳬʱ�𣿻��������������
 
-数组开小了吗？模数正确吗？调试删干净了吗？
+���鿪С����ģ����ȷ�𣿵���ɾ�ɾ�����
 
 */
