@@ -83,7 +83,7 @@ namespace YZLK{
   void INV(int *g, int *f, int n) {
     if (n == 1) return g[0] = ksm(f[0], mod - 2), void();
     INV(g, f, (n + 1) >> 1);
-    int c[N];
+    static int c[N];
     int h = 1;
     while(h < n)  h <<= 1;
     REP(i, 0, h - 1)  tr[i] = (tr[i >> 1] >> 1) | ((i & 1) ? h >> 1 : 0);
