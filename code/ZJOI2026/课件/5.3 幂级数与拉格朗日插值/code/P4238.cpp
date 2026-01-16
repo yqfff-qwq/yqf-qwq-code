@@ -85,7 +85,7 @@ namespace YZLK{
     INV(g, f, (n + 1) >> 1);
     static int c[N];
     int h = 1;
-    while(h < n)  h <<= 1;
+    while(h < (n << 1))  h <<= 1;
     REP(i, 0, h - 1)  tr[i] = (tr[i >> 1] >> 1) | ((i & 1) ? h >> 1 : 0);
     REP(i, 0, n - 1)  c[i] = f[i];
     REP(i, n, h - 1)  c[i] = 0;
