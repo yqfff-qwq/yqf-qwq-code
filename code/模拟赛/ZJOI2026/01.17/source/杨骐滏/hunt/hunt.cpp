@@ -3,6 +3,7 @@
 #include <cstring>
 #include <cmath>
 #include <algorithm>
+#include <queue>
 
 #define int long long
 #define REP(i,l,r) for(int i=l;i<=r;i++)
@@ -46,10 +47,50 @@ namespace YZLK{
   struct node{
     int x, y, z;
   }a[N];
+  int vis[N];
+  struct cmpx{
+    int d;
+    bool operator <(const cmpx &e)const{
+      return a[e.d].x < a[d].x;
+    }
+  };
+  std::priority_queue<cmpx> qx;
+  struct cmpy{
+    int d;
+    bool operator <(const cmpy &e)const{
+      return a[e.d].y < a[d].y;
+    }
+  };
+  std::priority_queue<cmpy> qy;
+  struct cmpz{
+    int d;
+    bool operator <(const cmpz &e)const{
+      return a[e.d].z < a[d].z;
+    }
+  };
+  std::priority_queue<cmpz> qz;
+  int dis(int d, int x, int y, int z) {
+    return std::max(abs(a[d].x - x), std::max(abs(a[d].y - y), abs(a[d].z - z)));
+  }
   void main() {
     read(n);
     REP(i, 1, n)  read(a[i].x, a[i].y, a[i].z);
-     
+    REP(i, 1, n)  qx.push({i}), qy.push({i}), qz.push({i});
+    int x, y, z, ans = 0;
+    REP(i, 1, n) {
+      x = qx.top().d;
+      while(vis[x]) qx.pop(), x = qx.top().d;
+      y = qy.top().d;
+      while(vis[y]) qy.pop(), y = qy.top().d;
+      z = qz.top().d;
+      while(vis[z]) qz.pop(), z = qz.top().d;
+      int px = a[x].x, py = a[y].y, pz = a[z].z;
+      int dx = dis(x, px, py, pz), dy = dis(y, px, py, pz), dz = dis(z, px, py, pz);
+      if (dx <= dy and dx <= dz)  vis[x] = 1, ans = std::max(ans, (dx + 1) >> 1);
+      else if (dy <= dx and dy <= dz) vis[y] = 1, ans = std::max(ans, (dy + 1) >> 1);
+      else                        vis[z] = 1, ans = std::max(ans, (dz + 1) >> 1);
+    }
+    std::cout << ans << '\n';
     return ;
   }
 }
