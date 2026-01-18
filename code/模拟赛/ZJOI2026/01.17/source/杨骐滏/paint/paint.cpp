@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <cstring>
+#include <queue>
 #include <cmath>
 #include <algorithm>
+#include <random>
 
 #define int long long
 #define REP(i,l,r) for(int i=l;i<=r;i++)
@@ -13,6 +15,7 @@
 #define fi first
 #define se second
 #define pb push_back
+#define ull unsigned long long
 #define ll long long
 
 void read(){}
@@ -41,121 +44,115 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 }
 
 namespace YZLK{
-  const int N = 1e2 + 10;
+  const int N = (1ll << 23);
   int n, m;
-  bool flag = 1;
-  int ans = 0;
-  struct nd{
-    int a, x, b, y;
-  };
-  struct node{
-    int y, a, x;
-  };
-  std::vector<node> ve[N];
-  std::vector<nd> vv;
-  std::vector<int> pp;
-  int s[N];
-  void dfs(int t) {
-    if (t == n + 1) return ans++, void();
-    int fl = 7;
-    for(auto it:ve[t]) {
-      if (s[it.a] == it.x) {
-        fl = fl & (7 ^ (1ll << it.y));
-      }
-    }
-    REP(i, 0, 2) {
-      if ((fl >> i) & 1) {
-        s[t] = i;
-        dfs(t + 1);
-      }
-    }
-    return;
-  }
-  int ksm(int a, int b) {
-    int s = 1;
-    while(b) {
-      if (b & 1)  s = s * a;
-      a = a * a;
-      b >>= 1;
-    }
-    return s;
-  }
-  int vis[N];
-  void ds(int t, int c) {
-    if (t == n + 1) {
-      ans += ksm(2, n - c);
-      return;
-    }
-    ds(t + 1, c);
-    if (!vis[t]) {
-      for(auto it:ve[t]) {
-        vis[it.a]++;
-      }
-      ds(t + 1, c + 1);
-      for(auto it:ve[t]) {
-        vis[it.a]--;
-      }
-    }
-    return;
-  }
+  int st[22][3][3], p[N], lg[N];
+  int f[22], dp[N];
+  int lowbit(int x) {return x & -x;}
   void main() {
     read(n, m);
     REP(i, 1, m) {
-      int a, x, b, y;
-      read(a, x, b, y);
-      vv.pb({a, x, b, y});
-      if (x or y) flag = 0;
-      pp.pb(a);
-      pp.pb(b);
+      int u, v, x, y;
+      read(u, x, v, y);
+      u--;
+      v--;
+      st[u][x][y] |= (1 << v);
+      st[v][y][x] |= (1 << u);
     }
-    if (flag) {
-      for(auto it:vv) {
-        ve[it.a].pb({it.x, it.b, it.y});
+    lg[0] = -1;
+    REP(i, 1, (1 << n) - 1) {
+      lg[i] = lg[i >> 1] + 1;
+      p[i] = lg[lowbit(i)];
+    }
+    dp[0] = 1;
+    REP(i, 1, (1 << n) - 1) {
+      int x = p[i];
+      REP(t, 0, 1){
+        int vis = (1 << x);
+        bool fl = false;
+        f[x] = t;
+        std::queue<int> q;
+        q.push(x);
+        while(!q.empty()) {
+          int u = q.front();
+          q.pop();
+          REP(o, 0, 1){
+            for(int j = i & st[u][f[u]][o ^ 1]; j; j -= (j & -j)) {
+              int v = p[j];
+              if (!((vis >> v) & 1)) {
+                f[v] = o;
+                q.push(v);
+                vis |= (1 << v);
+              }
+              else if (f[v] != o)  {fl = 1;break;}
+            }
+            if (fl) break;
+          }
+          if (fl) break;
+        }
+        if (!fl)   dp[i] += dp[i ^ vis];
       }
-      ds(1, 0);
-      std::cout << ans << '\n';
-      return;
     }
-    std::sort(pp.begin(), pp.end());
-    pp.erase(std::unique(pp.begin(), pp.end()), pp.end());
-    for(auto it:vv) {
-      it.a = lower_bound(pp.begin(), pp.end(), it.a) - pp.begin() + 1;
-      it.b = lower_bound(pp.begin(), pp.end(), it.b) - pp.begin() + 1;
-      ve[it.b].pb({it.y, it.a, it.x});
+    int ans = 0;
+    REP(s, 0, (1 << n) - 1) {
+      bool fl = 0;
+      int sum = ((1 << n) - 1) ^ s;
+      int vis = 0;
+      std::queue<int> q;
+      REP(i, 0, n - 1) {
+        if ((s >> i) & 1) {
+          if (st[i][2][2] & s) {fl = 1;break;}
+          REP(o, 0, 1) {
+            for(int j = sum & st[i][2][o ^ 1]; j; j -= (j & -j)) {
+              int v = p[j];
+              if (!((vis >> v) & 1)) {
+                f[v] = o;
+                q.push(v);
+                vis |= (1 << v);
+              }
+              else if (f[v] != o) {fl = 1;break;}
+            }
+            if (fl)   break;
+          }
+        }
+        if (fl) break;
+      }
+      if (fl)  continue;
+      while(!q.empty()) {
+        int u = q.front();
+        q.pop();
+        REP(o, 0, 1){
+          for(int j = sum & st[u][f[u]][o^1]; j; j -= (j & -j)) {
+            int v = p[j];
+            if (!((vis >> v) & 1)) {
+              f[v] = o;
+              q.push(v);
+              vis |= (1 << v);
+            }
+            else if (f[v] != o) {fl = 1;break;}
+          }
+          if (fl) break;
+        }
+        if (fl) break;
+      }
+      
+      if (!fl)  ans += dp[sum ^ vis];
     }
-    int sum = ksm(3ll, n - pp.size());
-    dfs(1);
-    std::cout << ans * sum << '\n';
-    return ;
+    std::cout << ans << '\n';
   }
 }
 
-signed main()
-{
-  freopen("paint.in","r",stdin);
-  freopen("paint.out","w",stdout);
-  int T=1;
+signed main(){
+  freopen("paint.in", "r", stdin);
+  freopen("paint.out", "w", stdout);
+  
+  int T = 1;
   // read(T);
-  while(T--)
-  {
-      YZLK::main();
+  while(T--){
+    YZLK::main();
   }
-
+  
   fclose(stdin);
   fclose(stdout);
   return 0;
 }
-
-/*
-
-code by yqfff_qwq
-
-交代码之前看一下
-
-这是你的代码吗？这是你要交的题吗？
-
-多测了吗？多测清空了吗？多测清空会超时吗？会出现其他问题吗？
-
-数组开小了吗？模数正确吗？调试删干净了吗？
-
-*/
