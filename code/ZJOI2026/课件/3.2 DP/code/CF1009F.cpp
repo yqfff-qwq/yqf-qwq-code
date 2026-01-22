@@ -48,9 +48,17 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 }
 
 namespace YZLK{
-  
+  const int N = 1e6 + 10;
+  int n;
+  std::vector<int> ve[N];
   void main() {
-    
+    read(n);
+    REP(i, 1, n) {
+      int x, y;
+      read(x, y);
+      ve[x].pb(y);
+      ve[y].pb(x);
+    }
     return ;
   }
 }
