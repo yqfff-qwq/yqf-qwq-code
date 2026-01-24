@@ -1,0 +1,4 @@
+T1: https://www.luogu.com.cn/problem/P5948
+T2: https://www.luogu.com.cn/problem/AT_arc074_c（是这题的弱化版）与  https://qoj.ac/contest/504/problem/1286（跟这题一模一样）
+T3: https://codeforces.com/gym/104639/problem/F
+T4: https://codeforces.com/contest/1526/problem/E（是这题的弱化版）
