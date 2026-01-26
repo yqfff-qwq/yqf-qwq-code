@@ -42,43 +42,62 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 
 namespace YZLK{
   const int mod = 1e9 + 7;
-  const int N = 3e2 + 10;
+  const int N = 5e3 + 10;
   int n, m;
+  int L[N], R[N];
+  int p1[N], p2[N], p3[N], p4[N];
+  int s[N];
   struct node{
     int l, r, c;
   }a[N];
-  int f[N][N][N];
+  int f[N][N];
+  int sum[N];
+  void del(int &a, int b) {
+    a -= b;
+    if (a < 0)  a += mod;
+    return;
+  }
+  void add(int &a, int b) {
+    a += b;
+    if (a >= mod) a -= mod;
+    return;
+  }
+  void upd(int i, int l, int r) {
+    l = std::min(l, R[i] + 1);
+    while(L[i] < l) {
+      int v = f[i][L[i]];
+      del(s[i], v);
+      del(s[L[i]], v);
+      f[i][L[i]++] = 0;
+    }
+    r = std::max(r, L[i]);
+    while(R[i] >= r) {
+      int v = f[i][R[i]];
+      del(s[i], v);
+      del(s[R[i]], v);
+      f[i][R[i]--] = 0;
+    }
+  }
   void main() {
     read(n, m);
-    REP(i, 1, m)  read(a[i].l, a[i].r, a[i].c);
-    std::sort(a + 1, a + m + 1);
-    f[1][0][0] = 3;
-    int p = 1;
+    REP(i, 0, n)  s[i] = p2[i] = p4[i] = L[i] = 0, p1[i] = p3[i] = R[i] = i;
+    REP(i, 1, m) {
+      int l, r, x;
+      read(l, r, x);
+      if (x == 1) p1[r] = std::min(p1[r], l);
+      if (x == 2) p2[r] = std::max(p2[r], l), p3[r] = std::min(p3[r], l);
+      if (x == 3) p4[r] = std::max(p4[r], l);
+    }
+    REP(i, 0, n)  REP(j, 0, n)  f[i][j] = 0;
+    f[0][0] = 3, s[0] = 6;
     REP(i, 1, n) {
-      while(p <= m and a[p].r <= i) {
-        REP(j, 0, i - 1) {
-           REP(k, 0, (j ? j - 1 : 0)) {
-            if (a[p].c == 1 && a[p].l <= j)                 f[i][j][k] = 0;
-            if (a[p].c == 2 && (a[p].l <= k || j < a[p].l)) f[i][j][k] = 0;
-            if (a[p].c == 3 && k < a[p].l)                  f[i][j][k] = 0;
-          }
-        }
-        p++;
-      }
-      if (i == n) break;
-      REP(j, 0, i - 1) {
-        REP(k, 0, (i ? i - 1 : 0)) {
-          if (!f[i][j][k])  continue;
-          f[i + 1][j][k] = (f[i + 1][j][k] + f[i][j][k]) % mod;
-          f[i + 1][i][k] = (f[i + 1][i][k] + f[i][j][k]) % mod;
-          f[i + 1][i][j] = (f[i + 1][i][j] + f[i][j][k]) % mod;
-        }
-      }
+      REP(j, 0, i - 2)  f[i - 1][j] = s[j], add(s[i - 1], s[j]), add(s[j], s[j]);
+      REP(j, 0, p2[i] - 1)  upd(j, 0, 0);
+      REP(j, p2[i], p1[i] - 1)  upd(j, p4[i], p3[i]);
+      REP(j, p1[i], i - 1)  upd(j, 0, 0);
     }
     int ans = 0;
-    REP(i, 0, n - 1) {
-      REP(k, 0, (i ? i - 1 : 0))  ans = (ans + f[n][i][k]) % mod;
-    }
+    REP(i, 0, n)  REP(j, 0, n)  ans = (ans + f[i][j]) % mod;
     std::cout << ans << '\n';
     return ;
   }
@@ -111,34 +130,5 @@ code by yqfff_qwq
 多测了吗？多测清空了吗？多测清空会超时吗？会出现其他问题吗？
 
 数组开小了吗？模数正确吗？调试删干净了吗？
-
-*/
-
-
-/*
-    while (p <= m && a[p].r <= i) { //只要当前这个限制 r = i 那么剔除不合法状态
-			for (int j = 0; j < i; j++) {
-				int limit = j ? j - 1 : 0;
-				for (int k = 0; k <= limit; k++) {
-					if (a[p].cnt == 1 && a[p].l <= j) //上面列出的三种不合法的 (i, j, k)
-						f[i][j][k] = 0;
-					if (a[p].cnt == 2 && (a[p].l <= k || j < a[p].l))
-						f[i][j][k] = 0;
-					if (a[p].cnt == 3 && k < a[p].l)
-						f[i][j][k] = 0;
-				}
-			}
-			++p;
-		}
-		if (i == n) break; //如果 i = n 那么下面就不需要继续递推了
-		for (int j = 0; j < i; j++) {
-			int limit = j ? j - 1 : 0;
-			for (int k = 0; k <= limit; k++) {
-				if (!f[i][j][k]) continue;
-				f[i + 1][j][k] = (f[i + 1][j][k] + f[i][j][k]) % mod; //上面讲的三种转移方式
-				f[i + 1][i][k] = (f[i + 1][i][k] + f[i][j][k]) % mod;
-				f[i + 1][i][j] = (f[i + 1][i][j] + f[i][j][k]) % mod;
-			}
-		}
 
 */

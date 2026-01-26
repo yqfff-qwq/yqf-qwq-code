@@ -1,0 +1,30 @@
+
+
+讲课人说明一下，这下面是去年讲课的作业。
+
+
+GL & HF
+
+霍尔定理（下面网络流建模题也有涉及）
+Luogu P3488 [POI2009] LYZ-Ice Skates
+
+负圈费用流
+Luogu P7173 【模板】有负圈的费用流
+
+
+
+
+↓↓↓ 想要提前尝鲜网络流建模问题？↓↓↓
+
+输出最小割方案 https://atcoder.jp/contests/abc239/tasks/abc239_g
+双倍经验 https://atcoder.jp/contests/abc317/tasks/abc317_g 与 https://atcoder.jp/contests/agc037/tasks/agc037_d
+杂题（基本最大流，最小割，费用流部分）
+https://atcoder.jp/contests/abc274/tasks/abc274_g
+https://atcoder.jp/contests/agc034/tasks/agc034_d
+https://codeforces.com/problemset/problem/1404/E
+https://codeforces.com/problemset/problem/1592/F2
+https://codeforces.com/problemset/problem/802/C（从 Tx_Lcy 和 Mine_King 赌赢了两顿饭的题）
+（有上下界的）
+https://atcoder.jp/contests/abc285/tasks/abc285_g
+https://codeforces.com/problemset/problem/704/D
+https://codeforces.com/problemset/problem/708/D
