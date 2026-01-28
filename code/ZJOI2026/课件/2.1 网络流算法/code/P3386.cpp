@@ -49,67 +49,39 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 
 namespace YZLK{
   const int N = 1e5 + 10;
-  const int inf = 1e18;
-  int n, m, s, t, ans, as;
-  int he[N], to[N], ne[N], c[N], d[N], tot = 1;
+  int n, m, e;
+  int ans;
+  int he[N], to[N], ne[N], tot;
   bool vis[N];
-  int dis[N], pre[N], f[N];
-  std::queue<int> q;
-  void add(int u, int v, int w, int h) {
+  int b[N];
+  void add(int u, int v) {
     ne[++tot] = he[u];
     he[u] = tot;
     to[tot] = v;
-    c[tot] = w;
-    d[tot] = h;
     return;
   }
-  bool spfa() {
-    REP(i, 0, n)  vis[i] = 0, f[i] = inf;
-    dis[s] = inf;
-    f[s] = 0;
-    while(!q.empty()) q.pop();
-    q.push(s);
-    while(!q.empty()) {
-      int p = q.front();
-      q.pop();
-      vis[p] = 0;
-      for(int i = he[p];i;i = ne[i]) {
-        if (c[i] == 0)  continue;
-        int v = to[i];
-        if (f[v] > f[p] + d[i]) {
-          f[v] = f[p] + d[i];
-          dis[v] = std::min(dis[p], c[i]);
-          pre[v] = i;
-          if (!vis[v])  q.push(v), vis[v] = 1;
-        }
-        // if (v == t) return 1;
-      }
+  bool dfs(int u) {
+    for(int i = he[u];i;i = ne[i]) {
+      int v = to[i];
+      if (vis[v]) continue;
+      vis[v] = 1;
+      if (!b[v] or dfs(b[v])) {b[v] = u;return 1;}
     }
-    if (f[t] != inf)  return 1;//因为第一次为t时答案可能不是最优的，不能提前退出
     return 0;
   }
-  void upd() {
-    int x = t;
-    while(x != s) {
-      int v = pre[x];
-      c[v] -= dis[t];
-      c[v ^ 1] += dis[t];
-      x = to[v ^ 1];
-    }
-    ans += dis[t];
-    as += f[t] * dis[t];
-    return;
-  }
   void main() {
-    read(n, m, s, t);
-    REP(i, 1, m) {
-      int u, v, w, h;
-      read(u, v, w, h);//不要判重边
-      add(u, v, w, h);
-      add(v, u, 0, -h);
+    read(n, m, e);
+    REP(i, 1, e) {
+      int u, v;
+      read(u, v);
+      if (u > n or v > m) continue;
+      add(u, v);
     }
-    while(spfa())  upd();
-    std::cout << ans << ' ' << as << '\n';
+    REP(i, 1, n) {
+      memset(vis, 0, sizeof(vis));
+      ans += dfs(i);
+    }
+    std::cout << ans << '\n';
     return ;
   }
 }

@@ -50,10 +50,11 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 namespace YZLK{
   const int N = 1e5 + 10;
   const int inf = 1e18;
-  int n, m, s, t, ans;
+  int n, m, s, t, ans, as;
   int he[N], to[N], ne[N], c[N], d[N], tot = 1;
-  int dis[N], pre[N], now[N];
-  std::map<pii, int> mp;
+  bool vis[N];
+  int now[N];
+  int f[N];
   std::queue<int> q;
   void add(int u, int v, int w, int h) {
     ne[++tot] = he[u];
@@ -63,35 +64,37 @@ namespace YZLK{
     d[tot] = h;
     return;
   }
-  bool bfs() {
-    REP(i, 0, n)  dis[i] = inf;
-    dis[s] = 0;
+  bool spfa() {
+    REP(i, 0, n)  vis[i] = 0, f[i] = inf;
+    f[s] = 0;
     while(!q.empty()) q.pop();
     q.push(s);
     now[s] = he[s];
     while(!q.empty()) {
       int p = q.front();
       q.pop();
+      vis[p] = 0;
       for(int i = he[p];i;i = ne[i]) {
         if (c[i] == 0)  continue;
         int v = to[i];
-        if (dis[v] > dis[p] + 1) {
+        if (f[v] > f[p] + d[i]) {
           now[v] = he[v];
-          dis[v] = dis[p] + 1;
-          q.push(v);
+          f[v] = f[p] + d[i];
+          if (!vis[v])  q.push(v), vis[v] = 1;
         }
-        if (v == t) return 1;
       }
     }
+    if (f[t] != inf)  return 1;//因为第一次为t时答案可能不是最优的，不能提前退出
     return 0;
   }
   int dfs(int u, int sum) {
     if (u == t) return sum;
     int res = 0;
+    vis[u] = 1;
     for(int i = now[u];i and sum;i = ne[i]) {
       now[u] = i;
       int v = to[i];
-      if (c[i] and dis[v] == dis[u] + 1) {
+      if (c[i] and !vis[v] and f[v] == f[u] + d[i]) {
         int k = dfs(v, std::min(sum, c[i]));
         c[i] -= k;
         c[i ^ 1] += k;
@@ -99,22 +102,23 @@ namespace YZLK{
         sum -= k;
       }
     }
+    vis[u] = 0;
     return res;
   }
   void main() {
     read(n, m, s, t);
     REP(i, 1, m) {
       int u, v, w, h;
-      read(u, v, w, h);
-      if (!mp[{u, v}]) {
-        add(u, v, w, h);
-        add(v, u, 0, -h);
-        mp[{u, v}] = tot;
-      }
-      else  c[mp[{u, v}] - 1] += w;
+      read(u, v, w, h);//不要判重边
+      add(u, v, w, h);
+      add(v, u, 0, -h);
     }
-    while(bfs())  ans += dfs(s, inf);
-    std::cout << ans << '\n';
+    while(spfa()) {
+      int sum = dfs(s, inf);
+      ans += sum;
+      as += sum * f[t];
+    }
+    std::cout << ans << ' ' << as << '\n';
     return ;
   }
 }

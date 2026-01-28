@@ -79,9 +79,10 @@ namespace YZLK{
           dis[v] = dis[p] + 1;
           q.push(v);
         }
-        if (v == t) return 1;
+        // if (v == t) return 1;
       }
     }
+    if (dis[t] != inf)  return 1;
     return 0;
   }
   int dfs(int u, int sum) {

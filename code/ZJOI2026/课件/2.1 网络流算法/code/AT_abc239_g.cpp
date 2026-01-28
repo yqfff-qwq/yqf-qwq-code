@@ -50,66 +50,65 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 namespace YZLK{
   const int N = 1e5 + 10;
   const int inf = 1e18;
-  int n, m, s, t, ans, as;
-  int he[N], to[N], ne[N], c[N], d[N], tot = 1;
-  bool vis[N];
-  int dis[N], pre[N], f[N];
+  int n, m, s, t, ans;
+  int he[N], to[N], ne[N], c[N], tot = 1;
+  int dis[N], pre[N], now[N];
   std::queue<int> q;
-  void add(int u, int v, int w, int h) {
+  void add(int u, int v, int w) {
     ne[++tot] = he[u];
     he[u] = tot;
     to[tot] = v;
     c[tot] = w;
-    d[tot] = h;
     return;
   }
-  bool spfa() {
-    REP(i, 0, n)  vis[i] = 0, f[i] = inf;
-    dis[s] = inf;
-    f[s] = 0;
+  bool bfs() {
+    REP(i, 0, n)  dis[i] = inf;
     while(!q.empty()) q.pop();
     q.push(s);
+    dis[s] = 0;
+    now[s] = he[s];
     while(!q.empty()) {
       int p = q.front();
       q.pop();
-      vis[p] = 0;
       for(int i = he[p];i;i = ne[i]) {
-        if (c[i] == 0)  continue;
+        if (!c[i])  continue;
         int v = to[i];
-        if (f[v] > f[p] + d[i]) {
-          f[v] = f[p] + d[i];
-          dis[v] = std::min(dis[p], c[i]);
-          pre[v] = i;
-          if (!vis[v])  q.push(v), vis[v] = 1;
+        if (dis[v] > dis[p] + 1) {
+          now[v] = he[v];
+          dis[v] = dis[p] + 1;
+          q.push(v);
         }
-        // if (v == t) return 1;
       }
     }
-    if (f[t] != inf)  return 1;//因为第一次为t时答案可能不是最优的，不能提前退出
-    return 0;
+    return dis[t] != inf;
   }
-  void upd() {
-    int x = t;
-    while(x != s) {
-      int v = pre[x];
-      c[v] -= dis[t];
-      c[v ^ 1] += dis[t];
-      x = to[v ^ 1];
+  int dfs(int u, int sum) {
+    if (u == t) return sum;
+    int res = 0, k;
+    for(int i = now[u];i and sum;i = ne[i]) {
+      now[u] = i;
+      if (!c[i])  continue;
+      int v = to[i];
+      if (dis[v] == dis[u] + 1) {
+        k = dfs(v, std::min(sum, c[i]));
+        c[i] -= k;
+        c[i ^ 1] += k;
+        res += k;
+        sum -= k;
+      }
     }
-    ans += dis[t];
-    as += f[t] * dis[t];
-    return;
+    return res;
   }
   void main() {
     read(n, m, s, t);
     REP(i, 1, m) {
-      int u, v, w, h;
-      read(u, v, w, h);//不要判重边
-      add(u, v, w, h);
-      add(v, u, 0, -h);
+      int u, v, w;
+      read(u, v, w);
+      add(u, v, w);
+      add(v, u, 0);
     }
-    while(spfa())  upd();
-    std::cout << ans << ' ' << as << '\n';
+    while(bfs())  ans += dfs(s, inf);
+    std::cout << ans << '\n';
     return ;
   }
 }
