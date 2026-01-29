@@ -62,7 +62,7 @@ namespace YZLK{
     return;
   }
   bool bfs() {
-    REP(i, 0, n)  dis[i] = inf;
+    REP(i, 0, n * 2)  dis[i] = inf;
     while(!q.empty()) q.pop();
     q.push(s);
     dis[s] = 0;
@@ -99,16 +99,41 @@ namespace YZLK{
     }
     return res;
   }
+  bool vs[N];
+  void ds(int u) {
+    vs[u] = 1;
+    for(int i = he[u];i;i = ne[i]) {
+      int v = to[i];
+      if (c[i] and !vs[v])  ds(v);
+    }
+    return;
+  }
   void main() {
-    read(n, m, s, t);
+    read(n, m);
+    s = n + 1, t = n;
     REP(i, 1, m) {
-      int u, v, w;
-      read(u, v, w);
-      add(u, v, w);
-      add(v, u, 0);
+      int u, v;
+      read(u, v);
+      add(u + n, v, inf);
+      add(v, u + n, 0);
+      add(v + n, u, inf);
+      add(u, v + n, 0);
+    }
+    REP(i, 1, n) {
+      int x;
+      read(x);
+      add(i, i + n, x);
+      add(i + n, i, 0);
     }
     while(bfs())  ans += dfs(s, inf);
     std::cout << ans << '\n';
+    ds(s);
+    std::vector<int> w;
+    REP(i, 1, n) {
+      if (vs[i] and !vs[i + n]) w.pb(i);
+    }
+    std::cout << w.size() << '\n';
+    for(auto it:w)  std::cout << it << ' ';
     return ;
   }
 }
