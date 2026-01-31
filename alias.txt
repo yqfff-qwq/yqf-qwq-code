@@ -1,0 +1,2 @@
+alias "G++"="g++ -O2 -std=c++14 -Wall
+ -Wextra -fsanitize=address,leak,undefined"

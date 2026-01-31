@@ -1,0 +1,180 @@
+starlight1_1.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 6
+  subtaskId: 1
+
+starlight1_2.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 6
+  subtaskId: 1
+
+starlight1_3.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 6
+  subtaskId: 1
+
+starlight1_4.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 6
+  subtaskId: 1
+
+starlight1_5.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 6
+  subtaskId: 1
+
+starlight1_6.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 6
+  subtaskId: 1
+
+starlight2_1.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 8
+  subtaskId: 2
+
+starlight2_2.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 8
+  subtaskId: 2
+
+starlight2_3.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 8
+  subtaskId: 2
+
+starlight2_4.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 8
+  subtaskId: 2
+
+starlight2_5.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 8
+  subtaskId: 2
+
+starlight3_1.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 3
+
+starlight3_2.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 3
+
+starlight3_3.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 3
+
+starlight3_4.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 3
+
+starlight4_1.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 14
+  subtaskId: 4
+
+starlight4_2.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 14
+  subtaskId: 4
+
+starlight4_3.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 14
+  subtaskId: 4
+
+starlight4_4.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 14
+  subtaskId: 4
+
+starlight5_1.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 5
+
+starlight5_2.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 5
+
+starlight5_3.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 5
+
+starlight5_4.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 5
+
+starlight5_5.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 5
+
+starlight5_6.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 5
+
+starlight6_1.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 32
+  subtaskId: 6
+
+starlight6_2.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 32
+  subtaskId: 6
+
+starlight6_3.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 32
+  subtaskId: 6
+
+starlight6_4.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 32
+  subtaskId: 6
+
+starlight6_5.in:
+  timeLimit: 2000
+  memoryLimit: 524288
+  score: 32
+  subtaskId: 6
+

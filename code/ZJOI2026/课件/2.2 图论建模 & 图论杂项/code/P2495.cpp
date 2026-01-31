@@ -50,6 +50,7 @@ namespace YZLK{
   int st[N], tl;
   int dep[N], sz[N];
   int fa[N], son[N];
+  int top[N];
   int h[N], len, tot;
   struct node{
     int to, ne, c;
@@ -64,7 +65,18 @@ namespace YZLK{
       if (v == f) continue;
       dfs1(v, f);
       sz[u] += sz[v];
-      if (sz[u] > )
+      if (sz[u] > sz[son[u]]) son[u] = v;
+    }
+    return;
+  }
+  void dfs2(int u, int tp) {
+    top[u] = tp;
+    dfn[u] = ++idx;
+    if (!son[u]) return;
+    dfs2(son[u], tp);
+    for(int i = he[u];i;i = e[i].ne) {
+      int v = e[i].to;
+      if (v == son[u] or v == fa[u])  continue;
     }
     return;
   }
@@ -73,7 +85,7 @@ namespace YZLK{
       return dfn[a] < dfn[b];
     });
     st[++tl] = 1;
-
+    
     return;
   }
   void main() {
@@ -110,10 +122,10 @@ code by yqfff_qwq
 
 交代码之前看一下
 
-这是你的代码吗？这是你要交的题吗？
+这是你的代码吗喵？这是你要交的题吗喵？
 
-多测了吗？多测清空了吗？多测清空会超时吗？会出现其他问题吗？
+多测了吗喵？多测清空了吗喵？多测清空会超时吗喵？会出现其他问题吗喵？
 
-数组开小了吗？模数正确吗？调试删干净了吗？
+数组开小了吗喵？模数正确吗喵？调试删干净了吗喵？
 
 */
