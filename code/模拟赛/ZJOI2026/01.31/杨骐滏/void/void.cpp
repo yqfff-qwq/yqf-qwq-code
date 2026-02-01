@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <map>
 
-// #define int long long
+#define int long long
 #define REP(i,l,r) for(int i=l;i<=r;i++)
 #define DEP(i,r,l) for(int i=r;i>=l;i--)
 #define MAX(a, b) (a) = max((a), (b))
@@ -44,12 +44,29 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 }
 
 namespace YZLK{
-  
+  const int N = 2e6 + 10;
+  int n, m;
+  int d[N];
+  std::vector<int> ans;
+  std::vector<int> ve[N];
   void main() {
-    
-    return;
+    read(n, m);
+    ans.clear();
+    REP(i, 1, n)  ve[i].clear(), d[i] = 0;
+    REP(i, 1, m) {
+      int u, v;
+      read(u, v);
+      d[u]++, d[v]++;
+    }
+    REP(i, 1, n) {
+      if (d[i] & 1) ans.pb(i);
+    }
+    if (ans.empty())  std::cout << "1 2\n";
+    else  std::cout << ans[0] << ' ' << ans[1] << '\n';
+    return ;
   }
 }
+
 
 signed main()
 {
@@ -73,10 +90,10 @@ code by yqfff_qwq
 
 交代码之前看一下
 
-这是你的代码吗？这是你要交的题吗？
+这是你的代码吗喵？这是你要交的题吗喵？
 
-多测了吗？多测清空了吗？多测清空会超时吗？会出现其他问题吗？
+多测了吗喵？多测清空了吗喵？多测清空会超时吗喵？会出现其他问题吗喵？
 
-数组开小了吗？模数正确吗？调试删干净了吗？
+数组开小了吗喵？模数正确吗喵？调试删干净了吗喵？
 
 */
