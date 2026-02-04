@@ -17,10 +17,6 @@
 #define pb push_back
 #define ull unsigned long long
 #define ll long long
-#define X(_) (_)
-#define Y(_) (dp[_] + _ * _)
-#define B(_) (dp[_] - _ * _)
-#define K(_) (2 * _)
 
 void read(){}
 template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
@@ -48,77 +44,59 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 }
 
 namespace YZLK{
-  const int N = 2e6 + 10;
-  struct node{
-    int son[26], d, fail, ans;
-  }tr[N];
-  int tot = 1;
-  int vis[N];
-  int mp[N], in[N];
-  void insert(char *c, int d) {
-    int u = 1, len = strlen(c + 1);
-    REP(i, 1, len) {
-      int k = c[i] - 'a';
-      if (!tr[u].son[k])  tr[u].son[k] = ++tot;
-      u = tr[u].son[k];
+  const int N = 1e6 + 10;
+  int n, m;
+  char c[N];
+  int he[N], ne[N], to[N], tot;
+  int nxt[N];
+  int st[N][21];
+  int dfn[N], tim;
+  int get(int u, int v) {return (dfn[u] < dfn[v] ? u : v);}
+  void dfs(int u, int fa) {
+    st[dfn[u] = ++tim][0] = fa;
+    for(int i = he[u];i;i = ne[i]) {
+      int v = to[i];
+      dfs(v, u);
     }
-    if (!tr[u].d) tr[u].d = d;
-    mp[d] = tr[u].d;
     return;
   }
-  std::queue<int> q;
-  void getfail() {
-    REP(i, 0, 25) tr[0].son[i] = 1;
-    q.push(1);
-    tr[1].fail = 0;
-    while(!q.empty()) {
-      int u = q.front();
-      q.pop();
-      REP(i, 0, 25) {
-        int v = tr[u].son[i];
-        int fl = tr[u].fail;
-        if (!v) {tr[u].son[i] = tr[fl].son[i];continue;}
-        tr[v].fail = tr[fl].son[i];
-        in[tr[v].fail]++;
-        q.push(v);
+  void add(int u, int v) {
+    ne[++tot] = he[u];
+    he[u] = tot;
+    to[tot] = v;
+    return;
+  }
+  int lca(int u, int v) {
+    if (u == v) return u;
+    u = dfn[u], v = dfn[v];
+    if (u > v)  std::swap(u, v);
+    u++;
+    int k = std::__lg(v - u + 1);
+    return get(st[u][k], st[v - (1ll << k) + 1][k]);
+  }
+  void main() {
+    scanf("%s", c + 1);
+    n = strlen(c + 1);
+    for(int i = 2, j = 0;i <= n;i++) {
+      while(c[i] != c[j + 1] and j) j = nxt[j];
+      if (c[i] == c[j + 1]) j++;
+      nxt[i] = j;
+    }
+    REP(i, 1, n)  add(nxt[i], i);
+    dfs(0, 0);
+    REP(j, 1, 20) {
+      for(int i = 1;(i + (1ll << j) - 1) <= tim;i++) {
+        st[i][j] = get(st[i][j - 1], st[i + (1ll << (j - 1))][j - 1]);
       }
     }
-    return;
-  }
-  void query(char *c) {
-    int u = 1, len = strlen(c + 1);
-    REP(i, 1, len) {
-      u = tr[u].son[c[i] - 'a'];
-      tr[u].ans++;
+    read(m);
+    REP(i, 1, m) {
+      int p, q;
+      read(p, q);
+      int lc = lca(p, q);
+      if (lc == p or lc == q) lc = st[dfn[lc]][0];
+      std::cout << lc << '\n';
     }
-    return;
-  }
-  void solve() {
-    REP(i, 1, tot)  if (!in[i]) q.push(i);
-    while(!q.empty()) {
-      int u = q.front();
-      q.pop();
-      vis[tr[u].d] += tr[u].ans;
-      int v = tr[u].fail;
-      in[v]--;
-      tr[v].ans += tr[u].ans;
-      if (!in[v]) q.push(v);
-    }
-    return;
-  }
-  char c[N];
-  int n;
-  void main() {
-    read(n);
-    REP(i, 1, n) {
-      scanf("%s", c + 1);
-      insert(c, i);
-    }
-    getfail();
-    scanf("%s", c + 1);
-    query(c);
-    solve();
-    REP(i, 1, n)  std::cout << vis[mp[i]] << '\n';
     return ;
   }
 }
