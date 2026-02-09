@@ -69,7 +69,7 @@ namespace YZLK{
     REP(i, 1, m)  REP(j, 1, m)  sum[i][j] += sum[i][j - 1];
     int ans = -1e18;
     REP(i, 1, m)
-      REP(j, 1, m)  ans = std::max(ans, sum[i][j] - d[j - 1] + d[i - 1]);
+      REP(j, i, m)  ans = std::max(ans, sum[i][j] - d[j - 1] + d[i - 1]);
     std::cout << ans << '\n';
     return ;
   }
