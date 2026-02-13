@@ -1,0 +1,6 @@
+方案①：
+https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/all
+
+方案②：
+见 补充.pdf题单
+	修正：应为SX0007  求线段交点

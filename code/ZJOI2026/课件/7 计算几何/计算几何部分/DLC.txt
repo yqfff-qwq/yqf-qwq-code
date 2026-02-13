@@ -1,0 +1,2 @@
+https://oi-wiki.org/geometry/random-incremental/
+https://oi-wiki.org/geometry/inverse/
