@@ -1,0 +1,3 @@
+T1 CF319E https://codeforces.com/problemset/submission/319/356337361 ref=https://www.luogu.com.cn/article/1rkv45zt
+T2 CF1578J https://codeforces.com/problemset/submission/1578/356342200 ref=https://www.luogu.com.cn/article/cz90q4d9
+T3 CF794G https://codeforces.com/problemset/submission/794/356360500 ref=https://www.luogu.com.cn/article/u6bgma3i

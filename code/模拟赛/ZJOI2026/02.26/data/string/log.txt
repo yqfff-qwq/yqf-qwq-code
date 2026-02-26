@@ -1,0 +1,81 @@
+global seed=244654960860963
+subtask=1,id=1,seed=14958961805300747890,|s|,|t|,n<=4,spec=null
+subtask=1,id=2,seed=1743490413280058053,|s|,|t|,n<=4,spec=null
+subtask=1,id=3,seed=9215188000089691622,|s|,|t|,n<=4,spec=null
+subtask=1,id=4,seed=6238036266919956792,|s|,|t|,n<=4,spec=null
+subtask=1,id=5,seed=8534200155529561426,|s|,|t|,n<=4,spec=null
+subtask=1,id=6,seed=5127284612315999593,|s|,|t|,n<=4,spec=null
+subtask=1,id=7,seed=17108053644651816537,|s|,|t|,n<=4,spec=null
+subtask=1,id=8,seed=9038164666266803659,|s|,|t|,n<=4,spec=null
+subtask=1,id=9,seed=4782704873191328645,|s|,|t|,n<=4,spec=null
+subtask=1,id=10,seed=7224659319822482703,|s|,|t|,n<=4,spec=null
+subtask=2,id=1,seed=12163345901587367229,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=2,seed=14056747941924511477,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=3,seed=15051450168711089604,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=4,seed=14843211157809802366,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=5,seed=9822553521278751171,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=6,seed=10492119125261462974,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=7,seed=10342307681723986872,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=8,seed=17930836646647638565,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=9,seed=14788402402814503896,|s|,|t|,n<=10,spec=no `?`
+subtask=2,id=10,seed=892157591261844558,|s|,|t|,n<=10,spec=no `?`
+subtask=3,id=1,seed=10473738207221548245,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=2,seed=11998889538709739856,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=3,seed=8887876870235117658,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=4,seed=461651942097476901,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=5,seed=797868361328109785,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=6,seed=17562340509571732938,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=7,seed=6304287837932192619,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=8,seed=10289026046845319442,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=9,seed=9507787773160310751,|s|,|t|,n<=300,spec=no `?`
+subtask=3,id=10,seed=10753028514473320785,|s|,|t|,n<=300,spec=no `?`
+subtask=4,id=1,seed=1949964868464554441,|s|,|t|,n<=300,spec=null
+subtask=4,id=2,seed=15837639422250716387,|s|,|t|,n<=300,spec=null
+subtask=4,id=3,seed=5139774546837448879,|s|,|t|,n<=300,spec=null
+subtask=4,id=4,seed=7638690661894437700,|s|,|t|,n<=300,spec=null
+subtask=4,id=5,seed=1758035706897620785,|s|,|t|,n<=300,spec=null
+subtask=4,id=6,seed=17515797271421094289,|s|,|t|,n<=300,spec=null
+subtask=4,id=7,seed=5967013214976323584,|s|,|t|,n<=300,spec=null
+subtask=4,id=8,seed=14204277613333186969,|s|,|t|,n<=300,spec=null
+subtask=4,id=9,seed=17114675267126051782,|s|,|t|,n<=300,spec=null
+subtask=4,id=10,seed=2837494070625081286,|s|,|t|,n<=300,spec=null
+subtask=5,id=1,seed=13279506648735292227,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=2,seed=14173938619940369148,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=3,seed=9184092631768041591,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=4,seed=3811568313701751602,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=5,seed=921608775797291195,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=6,seed=1361172767957550792,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=7,seed=16988857084180287866,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=8,seed=4593856104337830241,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=9,seed=11146064302206999362,|s|,|t|,n<=5000,spec=no `?`
+subtask=5,id=10,seed=17643350819928826724,|s|,|t|,n<=5000,spec=no `?`
+subtask=6,id=1,seed=9323841991149029150,|s|,|t|,n<=5000,spec=null
+subtask=6,id=2,seed=3808560398396663777,|s|,|t|,n<=5000,spec=null
+subtask=6,id=3,seed=11589423208443458739,|s|,|t|,n<=5000,spec=null
+subtask=6,id=4,seed=13414797989781704728,|s|,|t|,n<=5000,spec=null
+subtask=6,id=5,seed=17026516695617596028,|s|,|t|,n<=5000,spec=null
+subtask=6,id=6,seed=17794278698982106374,|s|,|t|,n<=5000,spec=null
+subtask=6,id=7,seed=9018742095640470877,|s|,|t|,n<=5000,spec=null
+subtask=6,id=8,seed=4735132248737030131,|s|,|t|,n<=5000,spec=null
+subtask=6,id=9,seed=1467342638638025779,|s|,|t|,n<=5000,spec=null
+subtask=6,id=10,seed=1959319028196573911,|s|,|t|,n<=5000,spec=null
+subtask=7,id=1,seed=7102293218082368783,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=2,seed=18439010856409300482,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=3,seed=8572249237799149421,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=4,seed=2938250071186847297,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=5,seed=15281480967901354499,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=6,seed=15328637313085671998,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=7,seed=11965300930034159494,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=8,seed=15503768273877300533,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=9,seed=15542213737303566904,|s|,|t|,n<=300000,spec=no `?`
+subtask=7,id=10,seed=12556414217090702954,|s|,|t|,n<=300000,spec=no `?`
+subtask=8,id=1,seed=4367550733621058187,|s|,|t|,n<=300000,spec=null
+subtask=8,id=2,seed=9814398314294166991,|s|,|t|,n<=300000,spec=null
+subtask=8,id=3,seed=13123198406648156840,|s|,|t|,n<=300000,spec=null
+subtask=8,id=4,seed=4420723492306122098,|s|,|t|,n<=300000,spec=null
+subtask=8,id=5,seed=14218178557219701062,|s|,|t|,n<=300000,spec=null
+subtask=8,id=6,seed=1095140117567754962,|s|,|t|,n<=300000,spec=null
+subtask=8,id=7,seed=5333160168119325073,|s|,|t|,n<=300000,spec=null
+subtask=8,id=8,seed=17606458205879646354,|s|,|t|,n<=300000,spec=null
+subtask=8,id=9,seed=654685306763744235,|s|,|t|,n<=300000,spec=null
+subtask=8,id=10,seed=13882699905236945074,|s|,|t|,n<=300000,spec=null

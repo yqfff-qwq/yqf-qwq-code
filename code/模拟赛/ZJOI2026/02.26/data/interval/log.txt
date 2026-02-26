@@ -1,0 +1,71 @@
+global seed=223720828748915
+subtask=1,id=1,seed=12402756970626961798,n<=1000,spec=null
+subtask=1,id=2,seed=13849688637785956295,n<=1000,spec=null
+subtask=1,id=3,seed=1925478687576152578,n<=1000,spec=null
+subtask=1,id=4,seed=2098150569914267260,n<=1000,spec=null
+subtask=1,id=5,seed=7117788613915450289,n<=1000,spec=null
+subtask=1,id=6,seed=2569254752091806818,n<=1000,spec=null
+subtask=1,id=7,seed=10232601787016555783,n<=1000,spec=null
+subtask=1,id=8,seed=10545291500767623674,n<=1000,spec=null
+subtask=1,id=9,seed=17555087652212676915,n<=1000,spec=null
+subtask=1,id=10,seed=16131866310641155710,n<=1000,spec=null
+subtask=2,id=1,seed=8488472239598444688,n<=3000,spec=null
+subtask=2,id=2,seed=14930711640324115321,n<=3000,spec=null
+subtask=2,id=3,seed=17594380688100541245,n<=3000,spec=null
+subtask=2,id=4,seed=11749763398724545073,n<=3000,spec=null
+subtask=2,id=5,seed=15817037690369768393,n<=3000,spec=null
+subtask=3,id=1,seed=11867902996252650812,n<=5000,spec=null
+subtask=3,id=2,seed=11705940604411491314,n<=5000,spec=null
+subtask=3,id=3,seed=545021095351487504,n<=5000,spec=null
+subtask=3,id=4,seed=2921464152781243730,n<=5000,spec=null
+subtask=3,id=5,seed=16452776033484456768,n<=5000,spec=null
+subtask=4,id=1,seed=17136300681850904680,n<=10000,spec=null
+subtask=4,id=2,seed=4158681959035893247,n<=10000,spec=null
+subtask=4,id=3,seed=15005702325201289230,n<=10000,spec=null
+subtask=4,id=4,seed=104705163145591052,n<=10000,spec=null
+subtask=4,id=5,seed=1189286051344019820,n<=10000,spec=null
+subtask=4,id=6,seed=3834036010998355176,n<=10000,spec=null
+subtask=4,id=7,seed=13814453976031262206,n<=10000,spec=null
+subtask=4,id=8,seed=3891613996770680013,n<=10000,spec=null
+subtask=4,id=9,seed=18412094133978642887,n<=10000,spec=null
+subtask=4,id=10,seed=3153722366489827686,n<=10000,spec=null
+subtask=5,id=1,seed=11282406860850952129,n<=50000,spec=null
+subtask=5,id=2,seed=1231602182903152087,n<=50000,spec=null
+subtask=5,id=3,seed=8963213073146110071,n<=50000,spec=null
+subtask=5,id=4,seed=17449618663595627865,n<=50000,spec=null
+subtask=5,id=5,seed=1405182938240522173,n<=50000,spec=null
+subtask=5,id=6,seed=8084142533686163839,n<=50000,spec=null
+subtask=5,id=7,seed=2476501816664824928,n<=50000,spec=null
+subtask=5,id=8,seed=10007005344248190266,n<=50000,spec=null
+subtask=5,id=9,seed=870465060259309264,n<=50000,spec=null
+subtask=5,id=10,seed=2134591493888137481,n<=50000,spec=null
+subtask=6,id=1,seed=16103308199243321673,n<=100000,spec=no partial intersection
+subtask=6,id=2,seed=17242782450030203127,n<=100000,spec=no partial intersection
+subtask=6,id=3,seed=8594477992007318454,n<=100000,spec=no partial intersection
+subtask=6,id=4,seed=2896737393821146917,n<=100000,spec=no partial intersection
+subtask=6,id=5,seed=5509280159346300308,n<=100000,spec=no partial intersection
+subtask=6,id=6,seed=13082020755758456305,n<=100000,spec=no partial intersection
+subtask=6,id=7,seed=15868683115185981487,n<=100000,spec=no partial intersection
+subtask=6,id=8,seed=8540171769199492472,n<=100000,spec=no partial intersection
+subtask=6,id=9,seed=12385905730056257459,n<=100000,spec=no partial intersection
+subtask=6,id=10,seed=1272541506704012982,n<=100000,spec=no partial intersection
+subtask=7,id=1,seed=15924417821763237670,n<=100000,spec=op2 after op1
+subtask=7,id=2,seed=11695381738060098973,n<=100000,spec=op2 after op1
+subtask=7,id=3,seed=10391501146768984322,n<=100000,spec=op2 after op1
+subtask=7,id=4,seed=9134501454567840166,n<=100000,spec=op2 after op1
+subtask=7,id=5,seed=7820938689032585819,n<=100000,spec=op2 after op1
+subtask=7,id=6,seed=16250387057818485858,n<=100000,spec=op2 after op1
+subtask=7,id=7,seed=6271147598181917878,n<=100000,spec=op2 after op1
+subtask=7,id=8,seed=10937386731687102615,n<=100000,spec=op2 after op1
+subtask=7,id=9,seed=13755941970706304358,n<=100000,spec=op2 after op1
+subtask=7,id=10,seed=6710471008350337642,n<=100000,spec=op2 after op1
+subtask=8,id=1,seed=6878743428937857913,n<=100000,spec=null
+subtask=8,id=2,seed=5567853616248540011,n<=100000,spec=null
+subtask=8,id=3,seed=5637085508745704332,n<=100000,spec=null
+subtask=8,id=4,seed=12929434560457560505,n<=100000,spec=null
+subtask=8,id=5,seed=18355794372976103297,n<=100000,spec=null
+subtask=8,id=6,seed=2155303034687116609,n<=100000,spec=null
+subtask=8,id=7,seed=17161246314674655347,n<=100000,spec=null
+subtask=8,id=8,seed=5074946882363952685,n<=100000,spec=null
+subtask=8,id=9,seed=5304447407417044151,n<=100000,spec=null
+subtask=8,id=10,seed=16982695365506838328,n<=100000,spec=null
