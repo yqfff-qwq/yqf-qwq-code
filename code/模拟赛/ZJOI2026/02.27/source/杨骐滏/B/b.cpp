@@ -1,18 +1,12 @@
-#include <iostream>
-#include <cstdio>
-#include <cmath>
-#include <algorithm>
-#include <cstring>
-#include <queue>
-using namespace std;
+#include <bits/stdc++.h>
 
 #define REP(i,l,r)  for(int i = l;i <= r;i++)
 #define DEP(i,r,l)  for(int i = r;i >= l;i--)
 #define ll long long
-#define pii std::pair<int, int>
 #define pb push_back
 #define fi first
 #define se second
+#define int long long
 
 void read(){}
 template<typename T1, typename ...T2>inline void read(T1 &x, T2 &...oth) {
@@ -32,86 +26,70 @@ template<typename T1, typename ...T2>inline void read(T1 &x, T2 &...oth) {
 
 
 namespace YZLK{
-  const int N = 2e5 + 10;
-  const int M = 1e2 + 10;
+  const int N = 1e6 + 10;
   int n, m, q;
-  std::vector<pii> ve[N];
-  bool vis[M][M];
-  void bfs(int x, int y) {
-    std::queue<pii> q;
-    vis[x][0] = 1;
-    q.push({x, 0});
-    while(!q.empty()) {
-      auto t = q.front();
-      q.pop();
-      for(auto it:ve[t.fi]) {
-        int v = it.fi, w = it.se;
-        if (!vis[v][(w + t.se) % m]) {
-          vis[v][(w + t.se) % m] = 1;
-          q.push({v, (w + t.se) % m});
-        }
-      }
+  int f[N], d[N], L[N], R[N];
+  int g[N];
+  int find(int x) {
+    if (f[x] == x)  return f[x];
+    int fa = find(f[x]);
+    d[x] += d[f[x]];
+    f[x] = fa;
+    return fa;
+  }
+  void merge(int a, int b, int c) {
+    int x = find(a), y = find(b);
+    if (x == y) {
+      g[x] = std::__gcd(g[x], std::__gcd(d[a] + d[b] + c, c));
+    } else {
+      f[x] = y;
+      d[x] = c - d[a] - d[b];
+      g[y] = std::__gcd(g[y], std::__gcd(g[x], c));
     }
     return;
   }
-  void solve2() {
-    while(q--) {
-      int op, u, v, x, b, c;
-      read(op, u, v, x);
-      if (op == 1) {
-        ve[u].pb({v, x});
-        ve[v].pb({u, x});
-      } else {
-        read(b, c);
-        REP(i, 1, n) {
-          REP(j, 0, m - 1)  vis[i][j] = 0;
-        }
-        bfs(u, v);
-        int cnt = 0;
-        REP(i, 1, c) {
-          if (vis[v][x])  cnt++;
-          x = (x + b) % m;
-        }
-        std::cout << cnt << '\n';
-      }
-    }
+  int exgcd(int a, int b, int &x, int &y) {
+    if (!b) {return x = 1, y = 0, a;}
+    int d = exgcd(b, a % b, y, x);
+    return y -= a / b * x, d;
   }
-  void solve1() {
-    while(q--) {
-      int op, u, v, x, b, c;
-      read(op, u, v, x);
-      if (op == 1) {
-        
-      } else {
-        read(b, c);
-        std::cout << c << '\n';
-      }
-    }
-    return;
+  int floor(int a, int b) {
+    return (a - (a % b + b) % b) / b;
   }
-  int f[N], s[N];
-  
   void main() {
     read(n, m, q);
-    if (n <= 100 and q <= 100) {
-      solve2();
-      return;
-    }
-    if (m == 2) {
-      solve1();
-      return;
-    }
-    else {
-      solve1();
-      return;
+    REP(i, 1, n)  f[i] = i;
+    while(q--) {
+      int op, u, v, w, b, c;
+      read(op, u, v, w);
+      if (op == 1)  merge(u, v, w);
+      else {
+        read(b, c);
+        w %= m;
+        int x = find(u), y = find(v);
+        if (x != y) {puts("0");continue;}
+        g[x] = abs(g[x]);
+        int gcd = std::__gcd(g[x], m);
+        int ds = (d[u] + d[v]) % m;
+        int xt, yt;
+        int p = exgcd(gcd, -b, xt, yt);
+        if ((w - ds) % p) {puts("0");continue;}
+        int dt = (w - ds) / p;
+        p = abs(p);
+        xt *= dt, yt *= dt;
+        int k = floor(-yt * p + gcd - 1, gcd);
+        yt += k * (gcd / p);
+        if (yt >= c)  puts("0");
+        else          std::cout << floor((c - yt) * p + gcd - 1, gcd) << '\n';
+      }
     }
     return;
   }
 }
 
 signed main() {
-  freopen("B.in", "r", stdin);
-  freopen("B.out", "w", stdout);
+  freopen("interval.in", "r", stdin);
+  freopen("interval.out", "w", stdout);
   int T = 1;
   // read(T);
   while(T--) {
