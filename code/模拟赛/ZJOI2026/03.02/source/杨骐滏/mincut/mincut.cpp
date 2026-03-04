@@ -7,6 +7,7 @@
 #include <bitset>
 using namespace std;
 
+#define int long long
 #define REP(i,l,r)  for(int i = l;i <= r;i++)
 #define DEP(i,r,l)  for(int i = r;i >= l;i--)
 #define ll long long
@@ -33,44 +34,58 @@ template<typename T1, typename ...T2>inline void read(T1 &x, T2 &...oth) {
 
 
 namespace YZLK{
-  const int N = 1e6 + 10;
+  const int N = 2e5 + 10;
+  const int H = 60;
   int n, m, s, t;
   struct node{
-    int u, v;
-    ll w;
+    int u, v, w;
   }a[N];
-  int p[N];
-  ll c[N];
+  struct basis{
+    int b[H + 10];
+    int t[H + 10];
+    void clear() {
+      DEP(i, H, 0)  b[i] = t[i] = 0;
+    }
+    void insert(int x, int tm) {
+      DEP(i, H, 0) {
+        if (!((x >> i) & 1))  continue;
+        if (tm > t[i]) {
+          std::swap(x, b[i]);
+          std::swap(tm, t[i]);
+        }
+        x ^= b[i];
+      }
+      return;
+    }
+    int query(int x, int tm) {
+      DEP(i, H, 0) {
+        if (t[i] > tm)  x = std::min(x, x ^ b[i]);
+      }
+      return x;
+    }
+  }B;
+  int nxtu[N], nxtv[N];
+  int val[N], lst[N];
   void main() {
     read(n, m, s, t);
-    REP(i, 1, n)  p[i] = i;
-    REP(i, 1, n) {
-      if (s < i)  p[i]--;
-      if (t < i)  p[i]--;
-    }
-    REP(i, 0, (1 << n)) c[i] = 0;
-    p[s] = n - 1, p[t] = n;
     REP(i, 1, m) {
       read(a[i].u, a[i].v, a[i].w);
-      a[i].u = p[a[i].u], a[i].v = p[a[i].v];
     }
-    s = n - 1, t = n;
+    REP(i, 1, n)  lst[i] = m + 1, val[i] = 0;
+    DEP(i, m, 1) {
+      nxtu[i] = lst[a[i].u];
+      lst[a[i].u] = i;
+      nxtv[i] = lst[a[i].v];
+      lst[a[i].v] = i;
+    }
+    B.clear();
     REP(i, 1, m) {
-      REP(j, 0, (1 << (n - 2)) - 1) {
-        int x, y;
-        if (a[i].u >= n - 1) {
-          x = (a[i].u == n);
-        } else  x = (j >> (a[i].u - 1)) & 1;
-        if (a[i].v >= n - 1) {
-          y = (a[i].v == n);
-        } else  y = (j >> (a[i].v - 1)) & 1;
-        if (x != y) c[j] ^= a[i].w;
-      }
-      ll mn = 1e18;
-      REP(j, 0, (1 << (n - 2)) - 1) mn = std::min(mn, c[j]);
-      std::cout << mn << '\n';
+      val[a[i].u] ^= a[i].w;
+      val[a[i].v] ^= a[i].w;
+      if (a[i].u != s and a[i].u != t)  B.insert(val[a[i].u], nxtu[i]);
+      if (a[i].v != s and a[i].v != t)  B.insert(val[a[i].v], nxtv[i]);
+      std::cout << B.query(val[s], i) << '\n';
     }
-    
     return;
   }
 }
