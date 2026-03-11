@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug-auto",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}${env:OS == 'Windows_NT' ? '.exe' : ''}",
+            "cwd": "${fileDirname}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "${env:OS == 'Windows_NT' ? 'gdb.exe' : '/usr/bin/gdb'}",
+            "preLaunchTask": "build-auto",
+            "externalConsole": false,
+            "logging": { "engineLogging": false, "programOutput": true, "exceptions": false, "moduleLoad": false },
+"setupCommands": [ { "description": "Disable bash job control messages", "text": "set confirm off" } ], "internalConsoleOptions": "neverOpen",            
+        }
+    ]
+}
