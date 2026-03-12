@@ -50,7 +50,7 @@ template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
 namespace YZLK{
   const int N = 2e5 + 10;
   int n, m;
-  int he[N]
+  int he[N];
 
 	void main() {
 		
