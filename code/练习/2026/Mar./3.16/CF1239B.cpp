@@ -1,0 +1,149 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+#include <queue>
+#include <cmath>
+#include <algorithm>
+#include <random>
+
+#define int long long
+#define REP(i,l,r) for(int i=l;i<=r;i++)
+#define DEP(i,r,l) for(int i=r;i>=l;i--)
+#define MAX(a, b) (a) = std::max((a), (b))
+#define MIN(a, b) (a) = std::min((a), (b))
+#define pii std::pair<int, int>
+#define fi first
+#define se second
+#define pb push_back
+#define uint unsigned long long
+#define int long long
+#define X(_) (_)
+#define Y(_) (dp[_] + _ * _)
+#define B(_) (dp[_] - _ * _)
+#define K(_) (2 * _)
+
+void read(){}
+template<typename T1,typename ...T2>inline void read(T1 &x,T2 &...oth)
+{
+  x=0;
+  int f=0,ch=getchar();
+  while(ch<'0'||ch>'9')
+  {
+    if(ch=='-')
+    {
+      f=1;
+    }
+    ch=getchar();
+  }
+  while('0'<=ch&&ch<='9')
+  {
+    x=(x<<3)+(x<<1)+(ch^48);
+    ch=getchar();
+  }
+  if(f)
+  {
+    x=-x;
+  }
+  read(oth...);
+}
+
+namespace YZLK{
+  const int N = 3e5 + 10;
+  int n;
+  char c[N], t[N];
+  int s[N];
+  void main() {
+		read(n);
+    scanf("%s", c + 1);
+    int mn = n, d = 1;
+    REP(i, 1, n) {
+      s[i] = s[i - 1];
+      if (c[i] == '(')  s[i]++;
+      else              s[i]--;
+      if (s[i] < mn)  mn = s[i], d = i;
+    }
+    if (s[n]) return puts("0\n1 1\n"), void();
+    REP(i, d + 1, n)  t[i - d] = c[i];
+    REP(i, 1, d)      t[(n - d) + i] = c[i];
+    int ans = 0, sl = 1, sr = 1, sum = 0, mx = 0, l = 0;
+    int cnt = 0;
+    REP(i, 1, n) {
+      s[i] = s[i - 1];
+      if (t[i] == '(')  s[i]++;
+      else              s[i]--;
+      ans += (s[i] == 0);
+    }
+    bool flag = 0;
+    REP(i, 1, n) {
+      if (t[i] == ')') {
+        if (sum > mx) sl = l, sr = i, mx = sum;
+      }
+      if (s[i] <= 1)  l = i, sum = 0, flag = 0;
+      else {
+        if (t[i] == '(' and !flag) {
+          l = i;
+          flag = 1;
+        }
+        if (s[i] == 2 and flag)  sum++;  
+      }
+    }
+    ans += mx;
+    flag = 0, sum = 0, mx = 0, l = 0;
+    int pl = 1, pr = 1;
+    REP(i, 1, n) {
+      if (t[i] == ')') {
+        if (sum > mx) pl = l, pr = i, mx = sum;
+      }
+      if (s[i] < 1)  l = i, sum = 0, flag = 0;
+      else {
+        if (t[i] == '(' and !flag) {
+          l = i;
+          flag = 1;
+        }
+        if (s[i] == 1 and flag)  sum++;  
+      }
+    }
+    cnt += mx;
+    if (cnt >= ans) std::cout << cnt << '\n' << (pl + d - 1) % n + 1 << ' ' << (pr + d - 1) % n + 1 << '\n';
+    else  std::cout << ans << '\n' << (sl + d - 1) % n + 1 << ' ' << (sr + d - 1) % n + 1 << '\n';
+    /*
+    (()(()))()
+    (())()()()
+    ()(()(()))
+    1012123210
+    ))(()(())(
+    
+    */
+    return;
+  }
+}
+
+signed main()
+{
+  // freopen(".in","r",stdin);
+  // freopen(".out","w",stdout);
+  int T=1;
+  // read(T);
+  while(T--)
+  {
+    YZLK::main();
+  }
+
+  fclose(stdin);
+  fclose(stdout);
+  return 0;
+}
+
+/*
+
+code by yqfff_qwq
+
+交代码之前看一下
+
+这是你的代码吗？这是你要交的题吗？
+
+多测了吗？多测清空了吗？多测清空会超时吗？会出现其他问题吗？
+
+数组开小了吗？模数正确吗？调试删干净了吗？
+
+*/

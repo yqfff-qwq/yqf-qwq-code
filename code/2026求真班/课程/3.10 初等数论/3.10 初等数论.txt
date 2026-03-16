@@ -1,0 +1,7 @@
+初等数论（easy version）:
+https://www.luogu.com.cn/contest/314090
+clear!
+
+初等数论（hard version）:
+https://www.luogu.com.cn/contest/314089
+>=10
